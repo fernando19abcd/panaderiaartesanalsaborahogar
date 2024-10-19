@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panadería Artesanal Sabor a Hogar</title>  
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Panadería Artesanal Sabor a Hogar</h1>
+        <nav>
+            <ul>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#carrito">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Bienvenido a Panadería Artesanal Sabor a Hogar</h2>
+        <p>Visita nuestra página para ver nuestros productos y tu carrito de compras.</p>
+    </section>
+
+    <!-- Sección de Menú -->
+    <section id="menu">
+        <h2>Menú de Productos</h2>
+        <div class="producto">
+            <img src="pan_tradicional.jpg" alt="Pan Tradicional">
+            <h3>Pan Tradicional</h3>
+            <p class="precio">$10.00</p>
+            <button class="add-cart" data-precio="10">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="concha.jpg" alt="Concha">
+            <h3>Concha</h3>
+            <p class="precio">$12.00</p>
+            <button class="add-cart" data-precio="12">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="cuernito.jpg" alt="Cuernito">
+            <h3>Cuernito</h3>
+            <p class="precio">$8.00</p>
+            <button class="add-cart" data-precio="8">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="pan_de_muerto.jpg" alt="Pan de Muerto">
+            <h3>Pan de Muerto</h3>
+            <p class="precio">$11.00</p>
+            <button class="add-cart" data-precio="11">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="baguette.jpg" alt="Baguette">
+            <h3>Baguette</h3>
+            <p class="precio">$9.00</p>
+            <button class="add-cart" data-precio="9">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="pan_integral.jpg" alt="Pan Integral">
+            <h3>Pan Integral</h3>
+            <p class="precio">$10.50</p>
+            <button class="add-cart" data-precio="10.50">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="pan_de_caja.jpg" alt="Pan de Caja">
+            <h3>Pan de Caja</h3>
+            <p class="precio">$8.50</p>
+            <button class="add-cart" data-precio="8.50">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="pan_de_centeno.jpg" alt="Pan de Centeno">
+            <h3>Pan de Centeno</h3>
+            <p class="precio">$12.00</p>
+            <button class="add-cart" data-precio="12">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="pan_de_ajo.jpg" alt="Pan de Ajo">
+            <h3>Pan de Ajo</h3>
+            <p class="precio">$10.00</p>
+            <button class="add-cart" data-precio="10">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="pan_de_mantequilla.jpg" alt="Pan de Mantequilla">
+            <h3>Pan de Mantequilla</h3>
+            <p class="precio">$11.00</p>
+            <button class="add-cart" data-precio="11">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="leche_lala.jpg" alt="Leche Lala">
+            <h3>Leche Lala</h3>
+            <p class="precio">$20.00</p>
+            <button class="add-cart" data-precio="20">Añadir al Carrito</button>
+        </div>
+        <div class="producto">
+            <img src="leche_nutri.jpg" alt="Leche Nutri">
+            <h3>Leche Nutri</h3>
+            <p class="precio">$18.00</p>
+            <button class="add-cart" data-precio="18">Añadir al Carrito</button>
+        </div>
+    </section>
+
+    <!-- Sección del Carrito -->
+    <section id="carrito">
+        <h2>Carrito de Compras</h2>
+        <ul id="lista-carrito"></ul>
+        <p id="total">Total: $0.00</p>
+        <button id="pagar">Finalizar Compra</button>
+    </section>
+
+    <!-- Pestaña de Pago -->
+    <section id="pago" style="display:none;">
+        <h2>Página de Pago</h2>
+        <p id="monto-a-pagar"></p>
+        <label for="metodo-pago">Selecciona el método de pago:</label>
+        <select id="metodo-pago">
+            <option value="tarjeta">Tarjeta</option>
+            <option value="transferencia">Transferencia</option>
+            <option value="efectivo">Efectivo</option>
+        </select>
+        <button id="confirmar-pago">Confirmar Pago</button>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Panadería Artesanal Sabor a Hogar</h3>
+            <p>Deliciosos panes recién horneados todos los días.</p>
+            <p>Teléfono: +52 55 4554 8980</p>
+            <p>Email: panaderiasaborahogar123@gmail.com</p>
+            <p>Dirección: Av Industrias No. 3690, Zona Industrial, 78395 San Luis Potosí, S.L.P</p>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Panadería Artesanal Sabor a Hogar. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <script src="app.js"></script> 
+</body>
+</html>

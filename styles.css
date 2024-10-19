@@ -1,0 +1,137 @@
+/* Reseteo de márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo del cuerpo y fuente general */
+body {
+    font-family: Georgia, serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Encabezado y navegación */
+header {
+    background-color: #c57400;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #fff;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+/* Estilo de la sección de productos */
+#menu {
+    margin: 40px 0;
+}
+
+.producto {
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.producto img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: #c57400;
+}
+
+.producto h3 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.precio {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.add-cart {
+    padding: 10px 20px;
+    background-color: #c57400;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Sección del carrito */
+#carrito {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px 0;
+}
+
+#lista-carrito {
+    list-style: none;
+}
+
+#lista-carrito li {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+#total {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+#pagar {
+    padding: 10px 20px;
+    background-color: #c57400;
+    border: none;
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+e5
+/* Estilo para la pestaña de pago */
+#pago {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px 0;
+}
+
+#confirmar-pago {
+    padding: 10px 20px;
+    background-color: #c57400;
+    border: none;
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
