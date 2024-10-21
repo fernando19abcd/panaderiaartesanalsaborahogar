@@ -1,89 +1,132 @@
-// Seleccionar elementos importantes
-const botonesAgregar = document.querySelectorAll('.add-cart');
-const listaCarrito = document.getElementById('lista-carrito');
-const totalElemento = document.getElementById('total');
-let totalCarrito = 0;
+document.addEventListener("DOMContentLoaded", () => {
+    // Selecciona todos los elementos importantes
+    const imagenesProductos = document.querySelectorAll(".producto img");
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDescription = document.getElementById("modal-description");
+    const modalPrice = document.getElementById("modal-price");
+    const modalImage = document.getElementById("modal-image");
+    const cerrarModal = document.querySelector(".close");
+    const confirmarAgregarCarrito = document.getElementById("confirmar-agregar-carrito");
+    const botonPagar = document.getElementById("pagar");
+    const seccionPago = document.getElementById("pago");
+    const confirmarPago = document.getElementById("confirmar-pago");
+    const metodoPago = document.getElementById("metodo-pago");
+    const datosTarjeta = document.getElementById("datos-tarjeta");
+    const datosEfectivo = document.getElementById("datos-efectivo");
+    const efectivoRecibido = document.getElementById("efectivo-recibido");
+    const cambio = document.getElementById("cambio");
+    const listaCarrito = document.getElementById("lista-carrito");
+    const totalElemento = document.getElementById("total");
+    let totalCarrito = 0;
+    let productoSeleccionado = null;
 
-// Función para añadir productos al carrito
-botonesAgregar.forEach(boton => {
-    boton.addEventListener('click', () => {
-        const precio = parseFloat(boton.getAttribute('data-precio'));
-        const nombreProducto = boton.parentElement.querySelector('h3').textContent;
+    // Función para abrir el modal con la información del producto
+    const abrirModal = (producto) => {
+        productoSeleccionado = producto;
+        modalTitle.textContent = producto.dataset.name;
+        modalDescription.textContent = producto.dataset.description;
+        modalPrice.textContent = `Precio: $${producto.dataset.price}`;
+        modalImage.src = producto.querySelector("img").src; // Asigna la imagen del producto al modal
+        modal.style.display = "block";
+    };
 
-        // Crear un nuevo elemento de lista para el carrito
-        const itemCarrito = document.createElement('li');
-        itemCarrito.textContent = `${nombreProducto} - $${precio.toFixed(2)}`;
-        listaCarrito.appendChild(itemCarrito);
+    // Función para cerrar el modal
+    const cerrarModalFunc = () => {
+        modal.style.display = "none";
+        productoSeleccionado = null; // Reinicia el producto seleccionado al cerrar el modal
+    };
 
-        // Actualizar el total del carrito
-        totalCarrito += precio;
-        totalElemento.textContent = `Total: $${totalCarrito.toFixed(2)}`;
+    // Asignar eventos a todas las imágenes de productos
+    imagenesProductos.forEach(imagen => {
+        imagen.addEventListener("click", (e) => {
+            const producto = e.target.closest(".producto");
+            abrirModal(producto);
+        });
     });
-});
 
-// Finalizar compra (redirige a la pestaña de pago)
-document.getElementById('pagar').addEventListener('click', () => {
-    if (totalCarrito > 0) {
-        // Ocultar el carrito y mostrar la sección de pago
-        document.getElementById('carrito').style.display = 'none';
-        document.getElementById('pago').style.display = 'block';
+    // Cerrar el modal al hacer clic en la 'X'
+    cerrarModal.addEventListener("click", cerrarModalFunc);
 
-        // Mostrar el monto total a pagar
-        document.getElementById('monto-a-pagar').textContent = `Total a pagar: $${totalCarrito.toFixed(2)}`;
-    } else {
-        alert('El carrito está vacío.');
-    }
-});
+    // Funcionalidad para añadir el producto al carrito desde el modal
+    confirmarAgregarCarrito.addEventListener("click", () => {
+        if (productoSeleccionado) {
+            const nombre = productoSeleccionado.dataset.name;
+            const precio = parseFloat(productoSeleccionado.dataset.price);
+            const nuevoItem = document.createElement("li");
+            nuevoItem.textContent = `${nombre} - $${precio.toFixed(2)}`;
+            listaCarrito.appendChild(nuevoItem);
 
-// Confirmar el pago y pedir información adicional
-document.getElementById('confirmar-pago').addEventListener('click', () => {
-    const metodoPago = document.getElementById('metodo-pago').value;
+            // Actualizar el total
+            totalCarrito += precio;
+            totalElemento.textContent = `Total: $${totalCarrito.toFixed(2)}`;
 
-    if (metodoPago === 'tarjeta') {
-        // Solicitar datos de la tarjeta
-        const numeroTarjeta = prompt('Ingresa el número de tu tarjeta (16 dígitos):');
-        const fechaExpiracion = prompt('Ingresa la fecha de expiración (MM/AA):');
-        const cvv = prompt('Ingresa el CVV (3 dígitos):');
-
-        if (numeroTarjeta && fechaExpiracion && cvv) {
-            alert(`Pago exitoso con tarjeta: \nTotal: $${totalCarrito.toFixed(2)}. \nGracias por tu compra!`);
-        } else {
-            alert('Faltan datos de la tarjeta.');
-            return; // No continuar si faltan datos
+            cerrarModalFunc(); // Cierra el modal
         }
-    } else if (metodoPago === 'efectivo') {
-        // Solicitar el monto de dinero y calcular el cambio
-        const dineroEntregado = parseFloat(prompt('Ingresa la cantidad de dinero entregada:'));
-        if (dineroEntregado >= totalCarrito) {
-            const cambio = dineroEntregado - totalCarrito;
-            alert(`Pago en efectivo exitoso. \nTotal: $${totalCarrito.toFixed(2)}. \nCambio: $${cambio.toFixed(2)}. \nGracias por tu compra!`);
-        } else {
-            alert('El dinero entregado no es suficiente.');
-            return; // No continuar si el dinero es insuficiente
-        }
-    } else {
-        // Si selecciona transferencia
-        alert(`Pago exitoso por ${metodoPago}. \nTotal: $${totalCarrito.toFixed(2)}. \nGracias por tu compra!`);
-    }
-
-    // Imprimir el ticket
-    let ticket = '--- Ticket de Compra ---\n';
-    const items = listaCarrito.querySelectorAll('li');
-    items.forEach(item => {
-        ticket += `${item.textContent}\n`;
     });
-    ticket += `Total: $${totalCarrito.toFixed(2)}\n`;
-    ticket += `Método de Pago: ${metodoPago}\n`;
-    ticket += 'Gracias por su compra!';
 
-    console.log(ticket); // Aquí puedes imprimirlo o guardarlo
+    // Funcionalidad para el botón de "Finalizar Compra"
+    botonPagar.addEventListener("click", () => {
+        if (totalCarrito > 0) {
+            document.getElementById("monto-a-pagar").textContent = `Total a Pagar: $${totalCarrito.toFixed(2)}`;
+            seccionPago.style.display = "block"; // Muestra la sección de pago
+            document.getElementById("carrito").style.display = "none"; // Oculta el carrito
+        } else {
+            alert('El carrito está vacío.');
+        }
+    });
 
-    // Reiniciar el carrito
-    listaCarrito.innerHTML = '';
-    totalCarrito = 0;
-    totalElemento.textContent = 'Total: $0.00';
+    // Mostrar campos según el método de pago seleccionado
+    metodoPago.addEventListener("change", (e) => {
+        const metodo = e.target.value;
+        if (metodo === "tarjeta") {
+            datosTarjeta.style.display = "block";
+            datosEfectivo.style.display = "none";
+            cambio.style.display = "none"; // Reiniciar el cambio
+            efectivoRecibido.value = ""; // Reiniciar el valor
+        } else if (metodo === "efectivo") {
+            datosTarjeta.style.display = "none";
+            datosEfectivo.style.display = "block";
+            cambio.style.display = "none"; // Reiniciar el cambio
+            efectivoRecibido.value = ""; // Reiniciar el valor
+        } else {
+            datosTarjeta.style.display = "none";
+            datosEfectivo.style.display = "none";
+            cambio.style.display = "none"; // Reiniciar el cambio
+            efectivoRecibido.value = ""; // Reiniciar el valor
+        }
+    });
 
-    // Regresar a la vista del carrito
-    document.getElementById('carrito').style.display = 'block';
-    document.getElementById('pago').style.display = 'none';
+    // Funcionalidad para confirmar el pago
+    confirmarPago.addEventListener("click", () => {
+        const metodo = metodoPago.value;
+        if (metodo === "tarjeta") {
+            // Aquí puedes realizar la lógica para el pago con tarjeta
+            alert('Pago con tarjeta procesado.');
+            reiniciarCarrito(); // Reiniciar el carrito al procesar el pago
+        } else if (metodo === "efectivo") {
+            const dineroRecibido = parseFloat(efectivoRecibido.value);
+            if (!isNaN(dineroRecibido) && dineroRecibido >= totalCarrito) {
+                const cambioAmount = dineroRecibido - totalCarrito;
+                cambio.textContent = `Cambio: $${cambioAmount.toFixed(2)}`;
+                cambio.style.display = "block"; // Muestra el cambio
+                alert(`Pago en efectivo procesado. Monto recibido: $${dineroRecibido.toFixed(2)}. Cambio: $${cambioAmount.toFixed(2)}`);
+                reiniciarCarrito(); // Reiniciar el carrito al procesar el pago
+            } else {
+                alert('Por favor, introduce un monto válido o insuficiente.');
+            }
+        } else {
+            alert('Por favor, selecciona un método de pago.');
+        }
+    });
+
+    // Función para reiniciar el carrito
+    const reiniciarCarrito = () => {
+        // Limpiar la lista de productos en el carrito
+        listaCarrito.innerHTML = '';
+        totalCarrito = 0; // Reiniciar el total
+        totalElemento.textContent = 'Total: $0.00'; // Reiniciar el total mostrado
+        seccionPago.style.display = 'none'; // Ocultar la sección de pago
+        document.getElementById("carrito").style.display = "block"; // Volver a mostrar el carrito
+    };
 });
